@@ -37,12 +37,22 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   li.addEventListener('click', cartItemClickListener);
   return li;
 };
-
+// TESTE DO FÁBIO
+/* const loading = () => {
+  const loadingMessage = createCustomElement('span', 'loading', 'Carregando...');
+  displayProduct.appendChild(loadingMessage);
+  };
+  
+  const removeloading = () => { 
+  const loadingMessage = document.querySelector('.loading');
+  loadingMessage.remove();
+  }; */
+//
 const createListProducts = async (product) => {
   const displayProduct = document.querySelector('.items');
-  displayProduct.innerHTML = 'Carregando...';
+  displayProduct.innerHTML = 'Carregando...'; // PRECISA POR CLASSE 
   const data = await fetchProducts(product);
-  displayProduct.innerHTML = '';
+  displayProduct.innerHTML = ''; // PRECISA POR CLASSE
   const { results } = data;
   results.forEach((element) => {
     const { id, title, thumbnail } = element;
