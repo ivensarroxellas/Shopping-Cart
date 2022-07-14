@@ -27,7 +27,8 @@ const createProductItemElement = ({ sku, name, image }) => {
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
-  // coloque seu código aqui
+  const displayCartShopping = document.getElementsByClassName('cart_items');
+  displayCartShopping.removeChild(event);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -38,8 +39,8 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-const selectedItem = async ({ idItem }) => {
-  const displayCartShopping = document.getElementsByClassName('cart_items');
+const selectedItem = async (idItem) => {
+  const displayCartShopping = document.querySelector('.cart__items');
   const dataItem = await fetchItem(idItem);
   const { id, title, price } = dataItem;
   const itemOnCart = createCartItemElement({ sku: id, name: title, salePrice: price });
@@ -55,6 +56,18 @@ const loading = () => {
   const removeloading = () => { 
   const loadingMessage = document.querySelector('.loading');
   loadingMessage.remove();
+};
+
+const captureIdOnClicker = (event) => {
+  const idElement = getSkuFromProductItem(event.path[1]);
+  selectedItem(idElement);
+};
+
+  const clickerSelect = () => {
+    element = document.querySelectorAll('.item__add');
+    element.forEach((index) => {
+      index.addEventListener('click', captureIdOnClicker);
+    });
   };
 
 const createListProducts = async (product) => {
@@ -68,8 +81,9 @@ const createListProducts = async (product) => {
     const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
     displayProduct.appendChild(item);
     }); 
+  clickerSelect();
 };
 
-window.onload = () => { 
-  createListProducts('computador');
+window.onload = async () => { 
+  await createListProducts('computador');
 };
