@@ -38,6 +38,14 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
+const selectedItem = async ({ idItem }) => {
+  const displayCartShopping = document.getElementsByClassName('cart_items');
+  const dataItem = await fetchItem(idItem);
+  const { id, title, price } = dataItem;
+  const itemOnCart = createCartItemElement({ sku: id, name: title, salePrice: price });
+  displayCartShopping.appendChild(itemOnCart);
+};
+
 const loading = () => {
   const loadingMessage = createCustomElement('span', 'loading', 'Carregando...');
   const displayProduct = document.querySelector('.items');
