@@ -46,17 +46,6 @@ const selectedItem = async (idItem) => {
   displayCartShopping.appendChild(itemOnCart);
 };
 
-const loadingScreen = () => {
-  const message = createCustomElement('span', 'loading', 'Carregando...');
-  const displayProduct = document.querySelector('.items');
-  displayProduct.appendChild(message);
-  };
-  
-  const removeloadingScreen = () => { 
-  const message = document.querySelector('.loading');
-  message.remove();
-};
-
 const captureIdOnClicker = (event) => {
   const idElement = getSkuFromProductItem(event.path[1]);
   selectedItem(idElement);
@@ -68,8 +57,30 @@ const captureIdOnClicker = (event) => {
       index.addEventListener('click', captureIdOnClicker);
     });
   };
+  //////////////////////////////////
+  const reset = () => {
+    cart = document.querySelectorAll('.cart__items');
+    console.log(cart[0]);
+    cart[0].innerHTML = '';
+  };
 
-const createListProducts = async (product) => {
+  const resetCart = () => {
+    resetButton = document.querySelector('.empty-cart');
+    resetButton.addEventListener('click', reset);
+  };
+  ///////////////////////////////
+  const loadingScreen = () => {
+    const message = createCustomElement('span', 'loading', 'Carregando...');
+    const displayProduct = document.querySelector('.items');
+    displayProduct.appendChild(message);
+    };
+    
+  const removeloadingScreen = () => { 
+    const message = document.querySelector('.loading');
+    message.remove();
+  };
+
+  const createListProducts = async (product) => {
   const displayProduct = document.querySelector('.items');
   loadingScreen();
   const data = await fetchProducts(product);
@@ -85,4 +96,5 @@ const createListProducts = async (product) => {
 
 window.onload = async () => { 
   await createListProducts('computador');
+  resetCart();
 };
