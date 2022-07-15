@@ -58,13 +58,8 @@ const captureIdOnClicker = (event) => {
     });
   };
 
-  const calcProducts = () => {
-    
-  };
-  
   const reset = () => {
     cart = document.querySelectorAll('.cart__items');
-    console.log(cart[0]);
     cart[0].innerHTML = '';
   };
 
