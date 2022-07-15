@@ -32,23 +32,22 @@ const calc = (priceAr) => {
   cartContainer = document.querySelector('.total-price');
   const incialValue = 0;
   const priceProduct = priceAr.reduce(
-    (previousValue, cc) => previousValue + cc, incialValue,
+      (previousValue, cc) => previousValue + cc, incialValue,
     );
-    const roundValue = priceProduct.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    cartContainer.innerText = roundValue;
+    cartContainer.innerText = priceProduct;
 };
 
-const arrayPrice = async (price) => {
+const arrayPrice = (price) => {
   priceArray.push(price);
-  await calc(priceArray);
+  calc(priceArray);
 };
 
-const cartItemClickListener = async (event) => {
+const cartItemClickListener = (event) => {
   event.target.remove();
   const itemRemoved = event.target.innerText.split('$')[1];
   const tratedArray = priceArray.filter((unitElement) => unitElement !== Number(itemRemoved));
   priceArray = tratedArray;
-  await calc(tratedArray);
+  calc(tratedArray);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
