@@ -47,15 +47,15 @@ const selectedItem = async (idItem) => {
   displayCartShopping.appendChild(itemOnCart);
 };
 
-const loading = () => {
-  const loadingMessage = createCustomElement('span', 'loading', 'Carregando...');
+const loadingScreen = () => {
+  const message = createCustomElement('span', 'loading', 'Carregando...');
   const displayProduct = document.querySelector('.items');
-  displayProduct.appendChild(loadingMessage);
+  displayProduct.appendChild(message);
   };
   
-  const removeloading = () => { 
-  const loadingMessage = document.querySelector('.loading');
-  loadingMessage.remove();
+  const removeloadingScreen = () => { 
+  const message = document.querySelector('.loading');
+  message.remove();
 };
 
 const captureIdOnClicker = (event) => {
@@ -72,9 +72,9 @@ const captureIdOnClicker = (event) => {
 
 const createListProducts = async (product) => {
   const displayProduct = document.querySelector('.items');
-  loading();
+  loadingScreen();
   const data = await fetchProducts(product);
-  removeloading();
+  removeloadingScreen();
   const { results } = data;
   results.forEach((element) => {
     const { id, title, thumbnail } = element;
