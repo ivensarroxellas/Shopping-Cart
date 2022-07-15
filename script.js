@@ -1,3 +1,5 @@
+let priceArray = [];
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -26,8 +28,30 @@ const createProductItemElement = ({ sku, name, image }) => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
+const calc = (priceAr) => {
+  cartContainer = document.querySelector('.total-price');
+  console.log(priceAr);
+  const incialValue = 0;
+  const priceProduct = priceAr.reduce(
+    (previousValue, cc) => previousValue + cc, incialValue,
+    );
+    const roundValue = priceProduct.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    cartContainer.innerText = roundValue;
+};
+
+const arrayPrice = (price) => {
+  priceArray.push(price);
+  console.log(priceArray);
+  calc(priceArray);
+};
+
 const cartItemClickListener = (event) => {
   event.target.remove();
+  const itemRemoved = event.target.innerText.split('$')[1];
+  console.log(itemRemoved);
+  const tratedArray = priceArray.filter((unitElement) => unitElement !== Number(itemRemoved));
+  priceArray = tratedArray;
+  calc(tratedArray);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -43,6 +67,7 @@ const selectedItem = async (idItem) => {
   const dataItem = await fetchItem(idItem);
   const { id, title, price } = dataItem;
   const itemOnCart = createCartItemElement({ sku: id, name: title, salePrice: price });
+  arrayPrice(price);
   displayCartShopping.appendChild(itemOnCart);
 };
 
@@ -61,6 +86,8 @@ const captureIdOnClicker = (event) => {
   const reset = () => {
     cart = document.querySelectorAll('.cart__items');
     cart[0].innerHTML = '';
+    priceArray = [];
+    calc(priceArray);
   };
 
   const resetCart = () => {
