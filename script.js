@@ -30,7 +30,6 @@ const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').inn
 
 const calc = (priceAr) => {
   cartContainer = document.querySelector('.total-price');
-  console.log(priceAr);
   const incialValue = 0;
   const priceProduct = priceAr.reduce(
     (previousValue, cc) => previousValue + cc, incialValue,
@@ -39,19 +38,17 @@ const calc = (priceAr) => {
     cartContainer.innerText = roundValue;
 };
 
-const arrayPrice = (price) => {
+const arrayPrice = async (price) => {
   priceArray.push(price);
-  console.log(priceArray);
-  calc(priceArray);
+  await calc(priceArray);
 };
 
-const cartItemClickListener = (event) => {
+const cartItemClickListener = async (event) => {
   event.target.remove();
   const itemRemoved = event.target.innerText.split('$')[1];
-  console.log(itemRemoved);
   const tratedArray = priceArray.filter((unitElement) => unitElement !== Number(itemRemoved));
   priceArray = tratedArray;
-  calc(tratedArray);
+  await calc(tratedArray);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
