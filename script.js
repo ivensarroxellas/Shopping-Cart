@@ -57,7 +57,11 @@ const captureIdOnClicker = (event) => {
       index.addEventListener('click', captureIdOnClicker);
     });
   };
-  //////////////////////////////////
+
+  const calcProducts = () => {
+    
+  };
+  
   const reset = () => {
     cart = document.querySelectorAll('.cart__items');
     console.log(cart[0]);
@@ -68,7 +72,7 @@ const captureIdOnClicker = (event) => {
     resetButton = document.querySelector('.empty-cart');
     resetButton.addEventListener('click', reset);
   };
-  ///////////////////////////////
+
   const loadingScreen = () => {
     const message = createCustomElement('span', 'loading', 'Carregando...');
     const displayProduct = document.querySelector('.items');
